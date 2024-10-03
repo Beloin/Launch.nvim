@@ -2,12 +2,16 @@
   "version": "0.0.1",
   "configurations":[ 
     {
-      "name": "Run C",
-      "type": "cppdbg",
+      "name": "My C runnable",
+      "lang": "c",
+      "type": "codelldb",
       "run": "make debug",
       "program": "./target",
-      "pipeline": ["echo 'Hello World'", "make debug"],
-      "args" : ["examples/flow-control/example_02.bc"]
+      "pipeline": [ "echo 'Hello World'", "make debug" ],
+      "args" : [ "examples/flow-control/example_02.bc" ],
+      "env": { 
+        "ENV_VAR": "1" 
+      }
     }
   ]
 }

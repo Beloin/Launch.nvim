@@ -2,6 +2,18 @@
 
 Current settings version: 0.0.1
 
+```lua
+{
+  "Beloin/Launch.nvim",
+  config = function()
+    require('Launch').setup()
+  end,
+  dependencies = {
+    "folke/noice.nvim",
+  }
+}
+```
+
 
 # launch.nvim example
 
@@ -10,14 +22,26 @@ Current settings version: 0.0.1
   "version": "0.0.1",
   "configurations":[ 
     {
-      "name": "Run My C",
-      "type": "cppdbg", // Following DAP types
-      "run": "make debug",
+      "name": "My C runnable",
+      "lang": "c",
+      "type": "codelldb", // Following DAP types
       "program": "./target",
-      // Acts as a "Preprocessor"
-      "pipeline": ["echo 'Hello World'", "make debug"],
-      "args" : ["examples/flow-control/example_02.bc"]
+      // Act as preprocessor
+      "pipeline": [ "echo 'Hello World'", "make debug" ],
+      "args" : [ "examples/flow-control/example_02.bc" ],
+      "env": { 
+        "ENV_VAR": "1" 
+      }
     }
   ]
 }
 ```
+
+# Dependencies
+
+1. Noice
+
+# References
+
+1. Usually all code is inspired from [nvim-dap vscode extension](https://github.com/mfussenegger/nvim-dap/blob/master/lua/dap/ext/vscode.lua) 
+2. Following some tips with [nvim-plugin-template](https://github.com/ellisonleao/nvim-plugin-template/tree/main) 
