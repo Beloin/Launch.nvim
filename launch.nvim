@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations":[ 
+    {
+      "name": "Run C",
+      "type": "cppdbg",
+      "run": "make debug",
+      "program": "./target",
+      "pipeline": ["echo 'Hello World'", "make debug"],
+      "args" : ["examples/flow-control/example_02.bc"]
+    }
+  ]
+}
