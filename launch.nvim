@@ -3,11 +3,14 @@
   "configurations":[ 
     {
       "name": "Run C",
-      "type": "cppdbg",
+      "type": "gdb",
       "run": "make debug",
       "program": "./target",
-      "pipeline": ["echo 'Hello World'", "make debug"],
-      "args" : ["examples/flow-control/example_02.bc"]
+      "pipeline": [ "echo 'Hello World'", "make debug" ],
+      "args" : [ "examples/flow-control/example_02.bc" ],
+      "env": { 
+        "ENV_VAR": "1" 
+      }
     }
   ]
 }

@@ -25,14 +25,29 @@ local function parse()
 	return table
 end
 
-local function read_args()
-	local table = parse()
+local function cache_read_type(table)
+	if not table then
+		return nil
+	end
+	return table["configurations"][1]["type"]
+end
+
+local function cache_read_run(table)
 	if not table then
 		return nil
 	end
 
-	local args = table["configurations"][1]["args"]
-	return args
+	return table["configurations"][1]["run"]
+end
+
+local function cache_read_pipeline(table)
+	if not table then
+		return nil
+	end
+
+	local pipeline = table["configurations"][1]["pipeline"]
+
+	return pipeline
 end
 
 local function cache_read_args(table)
@@ -44,7 +59,28 @@ local function cache_read_args(table)
 	return args
 end
 
-M.parse = function()
+local function cache_read_program(table)
+	if not table then
+		return nil
+	end
+	local program = table["configurations"][1]["program"]
+	if not program then
+		return nil
+	end
+
+	local fullPath = vim.fn.getcwd() .. "/./" .. program
+
+	return vim.fn.resolve(fullPath)
+end
+
+local function cache_read_env(table)
+	if not table then
+		return nil
+	end
+	return table["configurations"][1]["env"]
+end
+
+M.load = function()
 	M.__current_table = parse()
 	return M.__current_table
 end
@@ -53,13 +89,35 @@ M.get_args = function()
 	return cache_read_args(M.__current_table)
 end
 
-M.get_type = function() end
+M.get_type = function()
+	return cache_read_type(M.__current_table)
+end
 
-M.should_preprocess = nil
-M.get_pipeline = nil
+M.should_preprocess = function()
+	local p = cache_read_pipeline(M.__current_table)
+	return p ~= nil and #p > 1
+end
+
+M.get_pipeline = function()
+	return cache_read_pipeline(M.__current_table)
+end
 
 -- TODO: Not necessary right now?
-M.get_run = nil
-M.get_program = nil
+M.get_run = function()
+	return cache_read_run(M.__current_table)
+end
+
+M.get_program = function()
+	return cache_read_program(M.__current_table)
+end
+
+-- TODO: For now everything will be "Lauch"
+M.get_request = function()
+	return "launch"
+end
+
+M.get_env = function()
+	return cache_read_env(M.__current_table)
+end
 
 return M

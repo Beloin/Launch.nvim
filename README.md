@@ -11,7 +11,7 @@ Current settings version: 0.0.1
   "configurations":[ 
     {
       "name": "Run My C",
-      "type": "cppdbg", // Following DAP types
+      "type": "dbg", // Following DAP types
       "run": "make debug",
       "program": "./target",
       // Acts as a "Preprocessor"
