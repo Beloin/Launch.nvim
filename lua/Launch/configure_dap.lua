@@ -56,6 +56,8 @@ M.configure = function()
 
 	local args = parser.get_args()
 
+  -- TODO: Use the default config, or extend from another already there?
+  -- extends: "Launch File"
 	local config = {
 		name = name,
 
