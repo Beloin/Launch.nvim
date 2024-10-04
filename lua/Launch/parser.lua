@@ -100,7 +100,7 @@ M.load = function()
 end
 
 M.is_loaded = function()
-	return M.__current_table == nil
+	return M.__current_table ~= nil
 end
 
 M.get_args = function()
