@@ -84,7 +84,7 @@ local function cache_get_lang(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"][1]["env"]
+	return table["configurations"][1]["lang"]
 end
 
 local function cache_get_name(table)
