@@ -2,6 +2,18 @@
 
 Current settings version: 0.0.1
 
+```JSON
+{
+  "Beloin/Launch.nvim",
+  config = function()
+    require('Launch').setup()
+  end,
+  dependencies = {
+    "folke/noice.nvim",
+  }
+}
+```
+
 
 # launch.nvim example
 
@@ -26,6 +38,8 @@ Current settings version: 0.0.1
 }
 ```
 
+# Dependencies
+Noice
 
 # References
 
