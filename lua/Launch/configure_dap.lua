@@ -15,6 +15,8 @@ local function set_env()
 end
 
 local function insert_config(config, lang)
+  lang = string.lower(lang)
+
 	local tb = dap.configurations[lang]
 	if tb then
 		table.insert(tb, config)
