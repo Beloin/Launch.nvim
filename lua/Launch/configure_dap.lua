@@ -111,6 +111,15 @@ function M.debug()
 		ut.dump(tb)
 		return
 	end
+
+	local tb2 = dap.adapters["c"]
+	if tb2 then
+		print("Type: ", tb2["type"])
+		print("Request", tb2["request"])
+		print("Name", tb2["name"])
+		ut.dump(tb2)
+		return
+	end
 end
 
 return M
