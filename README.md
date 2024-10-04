@@ -2,7 +2,7 @@
 
 Current settings version: 0.0.1
 
-```JSON
+```lua
 {
   "Beloin/Launch.nvim",
   config = function()
