@@ -80,6 +80,20 @@ local function cache_read_env(table)
 	return table["configurations"][1]["env"]
 end
 
+local function cache_get_lang(table)
+	if not table then
+		return nil
+	end
+	return table["configurations"][1]["env"]
+end
+
+local function cache_get_name(table)
+	if not table then
+		return nil
+	end
+	return table["configurations"][1]["name"]
+end
+
 M.load = function()
 	M.__current_table = parse()
 	return M.__current_table
@@ -118,6 +132,14 @@ end
 
 M.get_env = function()
 	return cache_read_env(M.__current_table)
+end
+
+M.get_lang = function()
+	return cache_get_lang(M.__current_table)
+end
+
+M.get_name = function()
+	return cache_get_name(M.__current_table)
 end
 
 return M

@@ -3,6 +3,7 @@
   "configurations":[ 
     {
       "name": "Run C",
+      "lang": "C",
       "type": "gdb",
       "run": "make debug",
       "program": "./target",
