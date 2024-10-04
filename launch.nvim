@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations":[ 
     {
-      "name": "Run C",
-      "lang": "C",
-      "type": "gdb",
+      "name": "My C runnable",
+      "lang": "c",
+      "type": "codelldb",
       "run": "make debug",
       "program": "./target",
       "pipeline": [ "echo 'Hello World'", "make debug" ],

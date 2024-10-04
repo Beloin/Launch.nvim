@@ -35,7 +35,6 @@ local function notify_error(msg)
 end
 
 -- TODO: Later use the array of parsed configurations
--- TODO: Not showing in the DapContinue
 M.configure = function()
 	notify_status("Loading Configurations")
 	parser.load()

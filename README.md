@@ -22,14 +22,13 @@ Current settings version: 0.0.1
   "version": "0.0.1",
   "configurations":[ 
     {
-      "name": "Run My C",
-      "lang": "C",
-      "type": "dbg", // Following DAP types
-      "run": "make debug",
+      "name": "My C runnable",
+      "lang": "c",
+      "type": "codelldb", // Following DAP types
       "program": "./target",
-      // Acts as a "Preprocessor"
-      "pipeline": ["echo 'Hello World'", "make debug"],
-      "args" : ["examples/flow-control/example_02.bc"],
+      // Act as preprocessor
+      "pipeline": [ "echo 'Hello World'", "make debug" ],
+      "args" : [ "examples/flow-control/example_02.bc" ],
       "env": { 
         "ENV_VAR": "1" 
       }
