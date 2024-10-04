@@ -33,6 +33,7 @@ local function notify_error(msg)
 end
 
 -- TODO: Later use the array of parsed configurations
+-- TODO: Not showing in the DapContinue
 M.configure = function()
 	notify_status("Loading Configurations")
 	parser.load()
@@ -94,6 +95,7 @@ M.configure = function()
 	}
 
 	insert_config(config, lang)
+  notify_status("Loaded configuration")
 end
 
 return M
