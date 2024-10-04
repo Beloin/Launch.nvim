@@ -99,6 +99,10 @@ M.load = function()
 	return M.__current_table
 end
 
+M.is_loaded = function()
+	return M.__current_table == nil
+end
+
 M.get_args = function()
 	return cache_read_args(M.__current_table)
 end

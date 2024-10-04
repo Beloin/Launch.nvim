@@ -35,8 +35,13 @@ end
 -- TODO: Later use the array of parsed configurations
 M.configure = function()
 	notify_status("Loading Configurations")
-	print("Loading Configuration")
 	parser.load()
+
+	if not parser.is_loaded() then
+		notify_error("Not loaded any configuration")
+		return
+	end
+
 	set_env()
 
 	local type = parser.get_type()
