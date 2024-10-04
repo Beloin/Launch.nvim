@@ -105,6 +105,9 @@ function M.debug()
 	local ut = require("Launch.utils")
 	local tb = dap.configurations["c"]
 	if tb then
+		print("Type: ", tb["type"])
+		print("Request", tb["request"])
+		print("Name", tb["name"])
 		ut.dump(tb)
 		return
 	end
