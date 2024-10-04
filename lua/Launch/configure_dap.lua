@@ -15,7 +15,13 @@ local function set_env()
 end
 
 local function insert_config(config, lang)
-	table.insert(dap.configurations[lang], config)
+	local tb = dap.configurations[lang]
+	if tb then
+		table.insert(tb, config)
+		return
+	end
+
+	dap.configurations[lang] = config
 end
 
 local function notify_status(msg)
@@ -55,7 +61,7 @@ M.configure = function()
 
 				-- Run pipeline
 				if pipeline then
-          notify_status("Running preprocess")
+					notify_status("Running preprocess")
 					for index = 1, #pipeline do
 						print("Running " .. pipeline[index])
 						notify_status("Running " .. pipeline[index])
