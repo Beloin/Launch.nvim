@@ -15,7 +15,7 @@ local function set_env()
 end
 
 local function insert_config(config, lang)
-  lang = string.lower(lang)
+	lang = string.lower(lang)
 
 	local tb = dap.configurations[lang]
 	if tb then
@@ -56,8 +56,8 @@ M.configure = function()
 
 	local args = parser.get_args()
 
-  -- TODO: Use the default config, or extend from another already there?
-  -- extends: "Launch File"
+	-- TODO: Use the default config, or extend from another already there?
+	-- extends: "Launch File"
 	local config = {
 		name = name,
 
@@ -98,7 +98,15 @@ M.configure = function()
 	}
 
 	insert_config(config, lang)
-  notify_status("Loaded configuration")
+	notify_status("Loaded configuration")
+end
+
+function M.debug()
+	local tb = dap.configurations['c']
+	if tb then
+    print(tb)
+		return
+	end
 end
 
 return M
