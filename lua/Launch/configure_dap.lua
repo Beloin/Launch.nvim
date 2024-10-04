@@ -102,9 +102,10 @@ M.configure = function()
 end
 
 function M.debug()
-	local tb = dap.configurations['c']
+	local ut = require("Launch.utils")
+	local tb = dap.configurations["c"]
 	if tb then
-    print(tb)
+		ut.dump(tb)
 		return
 	end
 end
