@@ -98,7 +98,8 @@ M.configure = function()
 		end,
 	}
 
-	insert_config(config, lang)
+	-- insert_config(config, lang)
+  M.debug()
 	notify_status("Loaded configuration")
 end
 
