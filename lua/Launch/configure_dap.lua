@@ -66,6 +66,9 @@ M.configure = function()
 		type = type,
 
 		program = function()
+			-- Set env variables again in case we don't run
+			set_env()
+
 			if parser.should_preprocess() then
 				local pipeline = parser.get_pipeline()
 
@@ -73,7 +76,7 @@ M.configure = function()
 				if pipeline then
 					notify_status("Running preprocess")
 					for index = 1, #pipeline do
-						notify_status("Running " .. pipeline[index])
+						notify_status("Running: " .. pipeline[index])
 						vim.cmd(pipeline[index])
 					end
 				end
