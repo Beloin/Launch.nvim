@@ -1,6 +1,7 @@
 local M = {}
 
 local dap = require("dap")
+local dap2 = require("dap.session")
 local parser = require("Launch.parser")
 local noice = require("noice")
 
@@ -126,6 +127,9 @@ function M.debug()
   ut.dump(dap.adapters)
   print('All Configurations:')
   ut.dump(dap.configurations)
+
+
+  vim.inspect(dap2)
 end
 
 return M
