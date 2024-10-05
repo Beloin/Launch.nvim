@@ -109,7 +109,6 @@ function M.debug()
 		print("Request", tb["request"])
 		print("Name", tb["name"])
 		ut.dump(tb)
-		return
 	end
 
   print('Adapters:')
@@ -119,7 +118,6 @@ function M.debug()
 		print("Request", tb2["request"])
 		print("Name", tb2["name"])
 		ut.dump(tb2)
-		return
 	end
 
 
