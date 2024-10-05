@@ -112,6 +112,7 @@ function M.debug()
 		return
 	end
 
+  print('Adapters:')
 	local tb2 = dap.adapters["c"]
 	if tb2 then
 		print("Type: ", tb2["type"])
@@ -120,6 +121,13 @@ function M.debug()
 		ut.dump(tb2)
 		return
 	end
+
+
+  print('-----------------------')
+  print('All Adapters:')
+  ut.dump(dap.adapters)
+  print('All Configurations:')
+  ut.dump(dap.configurations)
 end
 
 return M
