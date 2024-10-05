@@ -66,9 +66,6 @@ M.configure = function()
 		type = type,
 
 		program = function()
-			-- Set env variables again in case we don't run
-			set_env()
-
 			if parser.should_preprocess() then
 				local pipeline = parser.get_pipeline()
 
