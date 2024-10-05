@@ -38,10 +38,10 @@ Current settings version: 0.0.1
 ```
 
 # Dependencies
-Noice
+
+1. Noice
 
 # References
 
-Usually all code is inspired from [nvim-dap vscode extension](https://github.com/mfussenegger/nvim-dap/blob/master/lua/dap/ext/vscode.lua) 
-
-Following some tips with [nvim-plugin-template](https://github.com/ellisonleao/nvim-plugin-template/tree/main) 
+1. Usually all code is inspired from [nvim-dap vscode extension](https://github.com/mfussenegger/nvim-dap/blob/master/lua/dap/ext/vscode.lua) 
+2. Following some tips with [nvim-plugin-template](https://github.com/ellisonleao/nvim-plugin-template/tree/main) 

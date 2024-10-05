@@ -73,7 +73,6 @@ M.configure = function()
 				if pipeline then
 					notify_status("Running preprocess")
 					for index = 1, #pipeline do
-						print("Running " .. pipeline[index])
 						notify_status("Running " .. pipeline[index])
 						vim.cmd(pipeline[index])
 					end
@@ -98,39 +97,17 @@ M.configure = function()
 		end,
 	}
 
-	-- insert_config(config, lang)
-  M.debug()
+	insert_config(config, lang)
 	notify_status("Loaded configuration")
 end
 
 function M.debug()
-	local ut = require("Launch.utils")
-	local tb = dap.configurations["c"]
-	if tb then
-		print("Type: ", tb["type"])
-		print("Request", tb["request"])
-		print("Name", tb["name"])
-		ut.dump(tb)
-	end
+	notify_status("Starting Launch.nvim debug session")
+	parser.load()
 
-  print('Adapters:')
-	local tb2 = dap.adapters["c"]
-	if tb2 then
-		print("Type: ", tb2["type"])
-		print("Request", tb2["request"])
-		print("Name", tb2["name"])
-		ut.dump(tb2)
-	end
+	vim.inspect(parser.__current_table)
 
-
-  print('-----------------------')
-  print('All Adapters:')
-  ut.dump(dap.adapters)
-  print('All Configurations:')
-  ut.dump(dap.configurations)
-
-
-  vim.inspect(dap2)
+	parser.reset()
 end
 
 return M

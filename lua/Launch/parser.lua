@@ -146,4 +146,8 @@ M.get_name = function()
 	return cache_get_name(M.__current_table)
 end
 
+function M.reset()
+  M.__current_table = nil
+end
+
 return M
