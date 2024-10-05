@@ -105,7 +105,7 @@ function M.debug()
 	notify_status("Starting Launch.nvim debug session")
 	parser.load()
 
-	vim.inspect(parser.__current_table)
+	print(vim.inspect(parser.__current_table))
 
 	parser.reset()
 end
