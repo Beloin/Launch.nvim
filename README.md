@@ -1,6 +1,6 @@
 # Launch.nvim
 
-Current settings version: 0.0.1
+Current settings version: `0.1.0`
 
 ```lua
 {
@@ -10,16 +10,16 @@ Current settings version: 0.0.1
   end,
   dependencies = {
     "folke/noice.nvim",
+    "nvim-telescope/telescope.nvim",
   }
 }
 ```
-
 
 # launch.nvim example
 
 ```JSON
 {
-  "version": "0.0.1",
+  "version": "0.1.0",
   "configurations":[ 
     {
       "name": "My C runnable",
@@ -33,13 +33,30 @@ Current settings version: 0.0.1
         "ENV_VAR": "1" 
       }
     }
+  ],
+  "tasks": [
+    {
+      "name": "Generate compile_commands.json",
+      "pipeline": [
+        "bear -- make debug"
+      ]
+    }
   ]
 }
 ```
 
 # Dependencies
 
-1. Noice
+1. [Noice](https://github.com/folke/noice.nvim)
+2. [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+
+# Posterior works
+
+- [ ] CWD Property
+- [ ] Varible expansion (Including env variables)
+  - List of default variables
+  - Command variables (if not exists create it)
+- [ ] Command Prompt
 
 # References
 

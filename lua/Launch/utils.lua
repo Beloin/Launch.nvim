@@ -1,4 +1,7 @@
 local M = {}
+
+local noice = require("noice")
+
 function M.dump(o)
 	if type(o) == "table" then
 		local s = "{ "
@@ -14,6 +17,60 @@ function M.dump(o)
 	end
 end
 
+--- Returns the string representation of arr
+---@param t table
+---@param br string?
+function M.dump_arr(t, br)
+	br = br or "["
+	local out = br .. " "
+	for index, v in ipairs(t) do
+		out = out .. tostring(v)
+		if index ~= #t then
+			out = out .. ", "
+		end
+	end
+
+	return out .. " " .. br
+end
+
+--- Recursively formats a table, indenting according to the nesting level.
+---@param t table
+---@param level number
+---@return string
+local function recursive_inspect(t, level)
+	local out = ""
+	local indent = string.rep("\t", level) -- Indentation based on nesting level
+
+	if type(t) == "table" then
+		out = out .. "{\n"
+		for k, v in pairs(t) do
+			local key = type(k) == "string" and k .. " = " or "" -- Handle keys
+			-- Check if the value is a table (to handle nested arrays)
+			if type(v) == "table" then
+				out = out .. indent .. key .. recursive_inspect(v, level + 1) .. ",\n"
+			else
+				out = out .. indent .. key .. vim.inspect(v) .. ",\n"
+			end
+		end
+		out = out .. string.rep("\t", level - 1) .. "}"
+	else
+		out = out .. vim.inspect(t)
+	end
+
+	return out
+end
+
+--- Returns vim.inspect without methods/functions
+---@param t table
+---@return string
+function M.lua_inspect(t)
+	if not t then
+		return "{}"
+	end
+
+	return recursive_inspect(t, 1)
+end
+
 function M.run_sh(command)
 	local handle = io.popen(command)
 	if not handle then
@@ -24,6 +81,14 @@ function M.run_sh(command)
 	handle:close()
 
 	return true, result
+end
+
+function M.notify_status(msg)
+	noice.notify(msg, "info", { title = "Launch.nvim" })
+end
+
+function M.notify_error(msg)
+	noice.notify(msg, "error", { title = "Launch.nvim" })
 end
 
 return M
