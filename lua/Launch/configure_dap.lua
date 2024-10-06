@@ -114,6 +114,7 @@ function M.debug()
 	notify_status("Starting Launch.nvim debug session")
 	parser.load()
 
+	print("Amount: " .. parser.get_config_size())
 	print(vim.inspect(parser.__current_table))
 
 	parser.reset()
