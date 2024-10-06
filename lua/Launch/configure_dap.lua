@@ -55,9 +55,6 @@ local function parse_config()
 		type = type,
 
 		program = function()
-			-- Set env before running program
-			set_env()
-
 			if parser.should_preprocess() then
 				local pipeline = parser.get_pipeline()
 
@@ -81,6 +78,9 @@ local function parse_config()
 		end,
 
 		args = function()
+			-- Set env before running program
+			set_env()
+
 			if args then
 				return args
 			end
