@@ -10,6 +10,7 @@ Current settings version: 0.0.1
   end,
   dependencies = {
     "folke/noice.nvim",
+    "nvim-telescope/telescope.nvim",
   }
 }
 ```
@@ -33,6 +34,14 @@ Current settings version: 0.0.1
         "ENV_VAR": "1" 
       }
     }
+  ],
+  "tasks": [
+    {
+      "name": "Bear Makefile",
+      "pipeline": [
+        "bear -- make debug"
+      ]
+    }
   ]
 }
 ```
@@ -40,6 +49,15 @@ Current settings version: 0.0.1
 # Dependencies
 
 1. Noice
+2. Telescope
+
+# Posterior works
+
+- [ ] CWD Propertie
+- [ ] Varible expansion (Including env variables)
+  - List of default variables
+  - Command variables (if not exists create it)
+- [ ] Command Prompt
 
 # References
 

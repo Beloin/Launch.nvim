@@ -15,7 +15,19 @@ local function set_env(env_tb)
 	end
 end
 
+local function notify_status(msg)
+	noice.notify(msg, "info", { title = "Launch.nvim" })
+end
+
+local function notify_error(msg)
+	noice.notify(msg, "error", { title = "Launch.nvim" })
+end
+
 local function insert_config(config, lang)
+	if not lang then
+    notify_error("Not informed lang")
+		return
+	end
 	lang = string.lower(lang)
 
 	local tb = dap.configurations[lang]
@@ -27,15 +39,8 @@ local function insert_config(config, lang)
 	dap.configurations[lang] = config
 end
 
-local function notify_status(msg)
-	noice.notify(msg, "info", { title = "Launch.nvim" })
-end
-
-local function notify_error(msg)
-	noice.notify(msg, "error", { title = "Launch.nvim" })
-end
-
 local function parse_config()
+  -- TODO: Launch error for necessary fields
 	local type = parser.get_type()
 	local lang = parser.get_lang()
 
@@ -53,8 +58,6 @@ local function parse_config()
 
 	local cwd = parser.get_cwd() or vim.fn.getcwd()
 
-	-- TODO: Use the default config, or extend from another already there?
-	-- extends: "Launch File"
 	local config = {
 		name = name,
 

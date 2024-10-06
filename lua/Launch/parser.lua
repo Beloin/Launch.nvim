@@ -99,8 +99,15 @@ local function cache_get_cwd(table)
 	if not table then
 		return nil
 	end
-
 	return table["configurations"][M.__current_index]["cwd"]
+end
+
+local function cache_read_request(table)
+	if not table then
+		return nil
+	end
+
+	return table["configurations"][M.__current_index]["request"]
 end
 
 M.load = function()
@@ -140,6 +147,11 @@ end
 
 -- TODO: For now everything will be "Launch"
 M.get_request = function()
+	local request = cache_read_request(M.__current_index)
+	if request then
+		return request
+	end
+
 	return "launch"
 end
 
