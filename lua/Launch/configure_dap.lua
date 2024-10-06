@@ -35,18 +35,7 @@ local function notify_error(msg)
 	noice.notify(msg, "error", { title = "Launch.nvim" })
 end
 
--- TODO: Later use the array of parsed configurations
-M.configure = function()
-	notify_status("Loading Configurations")
-	parser.load()
-
-	if not parser.is_loaded() then
-		notify_error("Not loaded any configuration")
-		return
-	end
-
-	set_env()
-
+local function parse_config()
 	local type = parser.get_type()
 	local lang = parser.get_lang()
 
@@ -66,6 +55,9 @@ M.configure = function()
 		type = type,
 
 		program = function()
+			-- Set env before running program
+			set_env()
+
 			if parser.should_preprocess() then
 				local pipeline = parser.get_pipeline()
 
@@ -98,7 +90,24 @@ M.configure = function()
 	}
 
 	insert_config(config, lang)
-	notify_status("Loaded configuration")
+end
+
+-- TODO: Later use the array of parsed configurations
+M.configure = function()
+	notify_status("Loading Configurations")
+	parser.load()
+
+	if not parser.is_loaded() then
+		notify_error("Not loaded any configuration")
+		return
+	end
+
+	for i = 1, parser.get_config_size(), 1 do
+		parser.set_index(i)
+		parse_config()
+	end
+
+	notify_status("Loaded configurations")
 end
 
 function M.debug()

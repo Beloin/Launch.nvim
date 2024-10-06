@@ -1,6 +1,7 @@
 local M = {}
 
 M.__current_table = nil
+M.__current_index = 1
 
 local function parse()
 	local cwd = vim.fn.getcwd()
@@ -29,7 +30,7 @@ local function cache_read_type(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"][1]["type"]
+	return table["configurations"][M.__current_index]["type"]
 end
 
 local function cache_read_run(table)
@@ -37,7 +38,7 @@ local function cache_read_run(table)
 		return nil
 	end
 
-	return table["configurations"][1]["run"]
+	return table["configurations"][M.__current_index]["run"]
 end
 
 local function cache_read_pipeline(table)
@@ -45,7 +46,7 @@ local function cache_read_pipeline(table)
 		return nil
 	end
 
-	local pipeline = table["configurations"][1]["pipeline"]
+	local pipeline = table["configurations"][M.__current_index]["pipeline"]
 
 	return pipeline
 end
@@ -55,7 +56,7 @@ local function cache_read_args(table)
 		return nil
 	end
 
-	local args = table["configurations"][1]["args"]
+	local args = table["configurations"][M.__current_index]["args"]
 	return args
 end
 
@@ -63,7 +64,7 @@ local function cache_read_program(table)
 	if not table then
 		return nil
 	end
-	local program = table["configurations"][1]["program"]
+	local program = table["configurations"][M.__current_index]["program"]
 	if not program then
 		return nil
 	end
@@ -77,21 +78,21 @@ local function cache_read_env(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"][1]["env"]
+	return table["configurations"][M.__current_index]["env"]
 end
 
 local function cache_get_lang(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"][1]["lang"]
+	return table["configurations"][M.__current_index]["lang"]
 end
 
 local function cache_get_name(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"][1]["name"]
+	return table["configurations"][M.__current_index]["name"]
 end
 
 M.load = function()
@@ -129,7 +130,7 @@ M.get_program = function()
 	return cache_read_program(M.__current_table)
 end
 
--- TODO: For now everything will be "Lauch"
+-- TODO: For now everything will be "Launch"
 M.get_request = function()
 	return "launch"
 end
@@ -147,7 +148,22 @@ M.get_name = function()
 end
 
 function M.reset()
-  M.__current_table = nil
+	M.__current_table = nil
+	M.__current_index = 1
+end
+
+function M.get_config_size()
+	if M.__current_table then
+		return #M.__current_table["configurations"]
+	end
+
+	return 0
+end
+
+function M.set_index(i)
+	if M.__current_table then
+		M.__current_index = i
+	end
 end
 
 return M
