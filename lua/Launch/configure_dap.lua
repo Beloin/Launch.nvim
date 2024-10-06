@@ -5,12 +5,11 @@ local dap2 = require("dap.session")
 local parser = require("Launch.parser")
 local noice = require("noice")
 
-local function set_env()
-	local tb = parser.get_env()
-	if not tb then
+local function set_env(env_tb)
+	if not env_tb then
 		return
 	end
-	for key, value in pairs(tb) do
+	for key, value in pairs(env_tb) do
 		vim.fn.setenv(key, value)
 	end
 end
@@ -46,6 +45,11 @@ local function parse_config()
 
 	local args = parser.get_args()
 
+	local should_prep = parser.should_preprocess()
+	local pipeline = parser.get_pipeline()
+
+	local env_tb = parser.get_env()
+
 	-- TODO: Use the default config, or extend from another already there?
 	-- extends: "Launch File"
 	local config = {
@@ -55,9 +59,7 @@ local function parse_config()
 		type = type,
 
 		program = function()
-			if parser.should_preprocess() then
-				local pipeline = parser.get_pipeline()
-
+			if should_prep then
 				-- Run pipeline
 				if pipeline then
 					notify_status("Running preprocess")
@@ -79,7 +81,7 @@ local function parse_config()
 
 		args = function()
 			-- Set env before running program
-			set_env()
+			set_env(env_tb)
 
 			if args then
 				return args
@@ -92,7 +94,6 @@ local function parse_config()
 	insert_config(config, lang)
 end
 
--- TODO: Later use the array of parsed configurations
 M.configure = function()
 	notify_status("Loading Configurations")
 	parser.load()

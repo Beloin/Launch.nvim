@@ -114,7 +114,7 @@ end
 
 M.should_preprocess = function()
 	local p = cache_read_pipeline(M.__current_table)
-	return p ~= nil and #p > 1
+	return p ~= nil and #p > 0
 end
 
 M.get_pipeline = function()
