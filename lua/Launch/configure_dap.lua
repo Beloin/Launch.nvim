@@ -66,15 +66,15 @@ local function parse_config()
 						vim.cmd(pipeline[index])
 					end
 				end
-
-				if program then
-					return program
-				end
-
-				notify_error('Could not load "program" in launch.nvim')
-				-- TODO: Fail safe here instead of returning nil
-				return nil
 			end
+
+			if program then
+				return program
+			end
+
+			notify_error('Could not load "program" in launch.nvim')
+			-- TODO: Fail safe here instead of returning nil
+			return nil
 		end,
 
 		args = function()
