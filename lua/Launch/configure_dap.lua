@@ -4,6 +4,7 @@ local dap = require("dap")
 local dap2 = require("dap.session")
 local parser = require("Launch.parser")
 local noice = require("noice")
+local utils = require("Launch.utils")
 
 local function set_env(env_tb)
 	if not env_tb then
@@ -50,6 +51,8 @@ local function parse_config()
 
 	local env_tb = parser.get_env()
 
+	local cwd = parser.get_cwd() or vim.fn.getcwd()
+
 	-- TODO: Use the default config, or extend from another already there?
 	-- extends: "Launch File"
 	local config = {
@@ -64,8 +67,15 @@ local function parse_config()
 				if pipeline then
 					notify_status("Running preprocess")
 					for index = 1, #pipeline do
-						notify_status("Running: " .. pipeline[index])
-						vim.cmd(pipeline[index])
+						local cmd = pipeline[index]
+						notify_status("Running: " .. cmd)
+						local ok, result = utils.run_sh(cmd)
+						if ok then
+							notify_status(result)
+						else
+							notify_error("Failed to run " .. cmd)
+							return nil
+						end
 					end
 				end
 			end
@@ -89,6 +99,8 @@ local function parse_config()
 
 			return nil
 		end,
+
+		cwd = cwd,
 	}
 
 	insert_config(config, lang)

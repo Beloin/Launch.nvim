@@ -95,6 +95,14 @@ local function cache_get_name(table)
 	return table["configurations"][M.__current_index]["name"]
 end
 
+local function cache_get_cwd(table)
+	if not table then
+		return nil
+	end
+
+	return table["configurations"][M.__current_index]["cwd"]
+end
+
 M.load = function()
 	M.__current_table = parse()
 	return M.__current_table
@@ -164,6 +172,10 @@ function M.set_index(i)
 	if M.__current_table then
 		M.__current_index = i
 	end
+end
+
+function M.get_cwd()
+  return cache_get_cwd(M.__current_table)
 end
 
 return M

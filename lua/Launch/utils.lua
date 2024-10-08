@@ -14,4 +14,16 @@ function M.dump(o)
 	end
 end
 
+function M.run_sh(command)
+	local handle = io.popen(command)
+	if not handle then
+		return false, nil
+	end
+
+	local result = handle:read("*a")
+	handle:close()
+
+	return true, result
+end
+
 return M
