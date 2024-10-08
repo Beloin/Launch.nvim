@@ -200,7 +200,7 @@ function M.get_cwd()
 end
 
 function M.get_tasks()
-	return cache_read_tasks(M.__current_index)
+	return cache_read_tasks(M.__current_table)
 end
 
 return M
