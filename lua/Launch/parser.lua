@@ -108,7 +108,7 @@ local function cache_read_tasks(table)
 	if not table then
 		return nil
 	end
-	return table["configurations"]["tasks"]
+	return table["tasks"]
 end
 
 local function cache_read_request(table)
