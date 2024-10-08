@@ -21,7 +21,7 @@ local function make_entry(item)
 	return {
 		value = item,
 		display = item.name,
-		ordinal = item.name, -- For fuzzy matching
+		ordinal = item.name,
 	}
 end
 
@@ -44,7 +44,8 @@ end
 
 -- TODO: Make class or named table for this results
 -- respecting { name, preview }
-function M.run_picker(results)
+-- Add callback
+function M.run_picker(results, callback)
 	pickers
 		.new({}, {
 			prompt_title = "Tasks.nvim",

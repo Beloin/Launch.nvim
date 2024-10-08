@@ -3,6 +3,7 @@ local M = {}
 local launch_parser = require("Launch.parser")
 local tasks_parser = require("Launch.Tasks.parser")
 local picker = require("Launch.Tasks.picker")
+local utils = require("Launch.utils")
 
 M.__tasks = {}
 
@@ -26,8 +27,22 @@ function M.configure()
 	return ok
 end
 
+local function insert_preview()
+	if not M.__tasks then
+		return nil
+	end
+
+	for _, task in ipairs(M.__tasks) do
+		task["preview"] = utils.dump(task)
+	end
+
+	return M.__tasks
+end
+
 function M.launch_tasks()
-	picker.run_picker({})
+	insert_preview()
+	local o = M.__tasks or {}
+	picker.run_picker(o, function(entry) end)
 end
 
 return M
