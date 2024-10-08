@@ -11,7 +11,8 @@
       "args" : [ "examples/flow-control/example_02.bc" ],
       "env": { 
         "ENV_VAR": "1" 
-      }
+      },
+      "cwd": "."
     }
   ]
 }
