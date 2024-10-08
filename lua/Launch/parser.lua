@@ -156,7 +156,7 @@ end
 
 -- TODO: For now everything will be "Launch"
 M.get_request = function()
-	local request = cache_read_request(M.__current_index)
+	local request = cache_read_request(M.__current_table)
 	if request then
 		return request
 	end
