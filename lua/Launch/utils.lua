@@ -1,4 +1,7 @@
 local M = {}
+
+local noice = require("noice")
+
 function M.dump(o)
 	if type(o) == "table" then
 		local s = "{ "
@@ -24,6 +27,10 @@ function M.run_sh(command)
 	handle:close()
 
 	return true, result
+end
+
+function M.notify_status(msg)
+	noice.notify(msg, "info", { title = "Launch.nvim" })
 end
 
 return M

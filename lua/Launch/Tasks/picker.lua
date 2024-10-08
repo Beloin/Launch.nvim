@@ -51,7 +51,7 @@ function M.run_picker(results, callback)
 			prompt_title = "Tasks.nvim",
 			finder = finders.new_table({
 				-- results = results,
-				results = item_example,
+				results = results,
 				entry_maker = function(item)
 					return make_entry(item)
 				end,
