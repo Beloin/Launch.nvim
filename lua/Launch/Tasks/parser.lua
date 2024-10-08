@@ -8,14 +8,12 @@ function M.reset()
 end
 
 --- Load tasks from launch.nvim
----@param launch_nvim table
+---@param tasks table
 ---@return boolean
-function M.load_tasks(launch_nvim)
-	if not launch_nvim then
+function M.load_tasks(tasks)
+	if not tasks then
 		return false
 	end
-
-	local tasks = launch_nvim["tasks"]
 
 	if tasks and #tasks >= 1 then
 		M.__current_table = tasks
