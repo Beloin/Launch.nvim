@@ -1,5 +1,7 @@
 local M = {}
 
-function M.setup() end
+function M.configure() end
+
+function M.launch_tasks() end
 
 return M

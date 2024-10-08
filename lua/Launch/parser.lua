@@ -14,7 +14,7 @@ local function parse()
 
 		table = vim.json.decode(content)
 	else
-		local lJson2 = io.open(cwd .. "/.vscode/launch.nvim")
+		local lJson2 = io.open(cwd .. "/Launch.nvim")
 		if lJson2 then
 			local content = lJson2:read("*all")
 			lJson2:close()
@@ -102,6 +102,14 @@ local function cache_get_cwd(table)
 	return table["configurations"][M.__current_index]["cwd"]
 end
 
+local function cache_get_tasks(table)
+	if not table then
+		return nil
+	end
+	return table["configurations"]["tasks"]
+end
+
+
 local function cache_read_request(table)
 	if not table then
 		return nil
@@ -188,6 +196,10 @@ end
 
 function M.get_cwd()
   return cache_get_cwd(M.__current_table)
+end
+
+function M.get_tasks()
+  
 end
 
 return M

@@ -14,5 +14,11 @@
       },
       "cwd": "."
     }
+  ],
+  "tasks": [
+    {
+      "name": "Generate compile_commands.json",
+      "pipeline": [ "bear -- make" ]
+    }
   ]
 }
