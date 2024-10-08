@@ -6,7 +6,7 @@ function M.setup()
 		m.configure()
 	end, {})
 
-	vim.api.nvim_create_user_command("LaunchLoadDebug", function(opts)
+	vim.api.nvim_create_user_command("LaunchDebug", function(opts)
 		local m = require("Launch.configure_dap")
 		m.debug()
 	end, {})
