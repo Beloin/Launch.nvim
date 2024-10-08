@@ -33,4 +33,9 @@ function M.notify_status(msg)
 	noice.notify(msg, "info", { title = "Launch.nvim" })
 end
 
+function M.notify_error(msg)
+	noice.notify(msg, "error", { title = "Launch.nvim" })
+end
+
+
 return M

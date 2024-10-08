@@ -14,13 +14,13 @@ function M.configure()
 
 	local task_table = launch_parser.get_tasks()
 	if not task_table then
-		utils.notify_status("Problems loading tasks")
+		utils.notify_error("Problems loading task table: " .. task_table)
 		return false
 	end
 
 	local has_tasks = tasks_parser.load_tasks(task_table)
 	if not has_tasks then
-		utils.notify_status("Problems loading tasks")
+		utils.notify_error("Problems loading tasks: has no task")
 		return false
 	end
 
