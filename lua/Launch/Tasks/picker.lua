@@ -1,3 +1,8 @@
+--- picker.lua
+local M = {}
+
+
+
 local actions = require("telescope.actions")
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
@@ -13,7 +18,7 @@ local item_example = {
 }
 
 
-local function run_picker(results)
+function M.run_picker(results)
 	pickers
 		.new({}, {
 			prompt_title = "Tasks.nvim",
@@ -33,3 +38,5 @@ local function run_picker(results)
 		})
 		:find()
 end
+
+return M

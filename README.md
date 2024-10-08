@@ -20,7 +20,7 @@ Current settings version: 0.0.1
 
 ```JSON
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "configurations":[ 
     {
       "name": "My C runnable",
@@ -37,7 +37,7 @@ Current settings version: 0.0.1
   ],
   "tasks": [
     {
-      "name": "Bear Makefile",
+      "name": "Generate compile_commands.json",
       "pipeline": [
         "bear -- make debug"
       ]

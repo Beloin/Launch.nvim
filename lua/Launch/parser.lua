@@ -102,13 +102,14 @@ local function cache_get_cwd(table)
 	return table["configurations"][M.__current_index]["cwd"]
 end
 
-local function cache_get_tasks(table)
+---@param table table
+---@return table?
+local function cache_read_tasks(table)
 	if not table then
 		return nil
 	end
 	return table["configurations"]["tasks"]
 end
-
 
 local function cache_read_request(table)
 	if not table then
@@ -195,11 +196,11 @@ function M.set_index(i)
 end
 
 function M.get_cwd()
-  return cache_get_cwd(M.__current_table)
+	return cache_get_cwd(M.__current_table)
 end
 
 function M.get_tasks()
-  
+	return cache_read_tasks(M.__current_index)
 end
 
 return M
