@@ -6,6 +6,8 @@ local parser = require("Launch.parser")
 local noice = require("noice")
 local utils = require("Launch.utils")
 
+local show_result = false
+
 local function set_env(env_tb)
 	if not env_tb then
 		return
@@ -25,7 +27,7 @@ end
 
 local function insert_config(config, lang)
 	if not lang then
-    notify_error("Not informed lang")
+		notify_error("Not informed lang")
 		return
 	end
 	lang = string.lower(lang)
@@ -40,7 +42,7 @@ local function insert_config(config, lang)
 end
 
 local function parse_config()
-  -- TODO: Launch error for necessary fields
+	-- TODO: Launch error for necessary fields
 	local type = parser.get_type()
 	local lang = parser.get_lang()
 
@@ -74,12 +76,17 @@ local function parse_config()
 						notify_status("Running: " .. cmd)
 						local ok, result = utils.run_sh(cmd)
 						if ok then
-							notify_status(result)
+							if show_result then
+								notify_status(result)
+							end
+              notify_status("Finished: " .. cmd)
 						else
 							notify_error("Failed to run " .. cmd)
 							return nil
 						end
 					end
+
+					notify_status("Pipeline Finished")
 				end
 			end
 
