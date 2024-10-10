@@ -1,16 +1,21 @@
 {
   "version": "0.0.2",
-  "configurations":[ 
+  "configurations": [
     {
       "name": "My C runnable",
       "lang": "c",
       "type": "codelldb",
       "run": "make debug",
       "program": "./target",
-      "pipeline": [ "echo 'Hello World'", "make debug" ],
-      "args" : [ "examples/flow-control/example_02.bc" ],
-      "env": { 
-        "ENV_VAR": "1" 
+      "pipeline": [
+        "echo 'Hello World'",
+        "make debug"
+      ],
+      "args": [
+        "examples/flow-control/example_02.bc"
+      ],
+      "env": {
+        "ENV_VAR": "1"
       },
       "cwd": "."
     }
@@ -18,7 +23,15 @@
   "tasks": [
     {
       "name": "Generate compile_commands.json",
-      "pipeline": [ "bear -- make" ]
+      "pipeline": [
+        "bear -- make"
+      ]
+    },
+    {
+      "name": "Say Hello World",
+      "pipeline": [
+        "echo 'Hello World'"
+      ]
     }
   ]
 }

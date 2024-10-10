@@ -10,12 +10,11 @@ local action_state = require("telescope.actions.state")
 
 local noice = require("noice")
 
-local item_example = {
-	{ name = "My task number 1", preview = '{ name: "My Task 1",\n"pipeline": [ ... ] }' },
-	{ name = "My task", preview = '{ name: "My Task 2",\n"pipeline": [ ... ] }' },
-	{ name = "Item 3", preview = '{ name: "My Task 3",\n"pipeline": [ ... ] }' },
-	{ name = "Item 4", preview = '{ name: "My Task 4",\n"pipeline": [ ... ] }' },
-}
+---@class ItemExample
+---@field name string
+---@field preview string Buffer Like viewer
+---@field [string] any
+local ItemExample = { name = "My task N°1", preview = '{ name: "My Task 1",\n"pipeline": [ ... ] }' }
 
 local function make_entry(item)
 	return {
@@ -45,6 +44,10 @@ end
 -- TODO: Make class or named table for this results
 -- respecting { name, preview }
 -- Add callback
+
+--- Run picker calling callback
+---@param results ItemExample[]
+---@param callback fun(itemExample: ItemExample)
 function M.run_picker(results, callback)
 	pickers
 		.new({}, {
@@ -63,6 +66,9 @@ function M.run_picker(results, callback)
 					actions.close(prompt_bufnr)
 
 					on_item_selected(entry)
+          if callback then
+            callback(entry.value)
+          end
 				end)
 				return true
 			end,

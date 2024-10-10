@@ -45,7 +45,19 @@ end
 function M.launch_tasks()
 	insert_preview()
 	local o = M.__tasks or {}
-	picker.run_picker(o, function(entry) end)
+	picker.run_picker(o, function(itemExample)
+		local shouldProceed = itemExample and itemExample.pipeline and #itemExample.pipeline > 0
+
+		if shouldProceed then
+			for _, cmd in ipairs(itemExample.pipeline) do
+				local ok, output = utils.run_sh(cmd)
+
+				if ok then
+					utils.notify_status(output)
+				end
+			end
+		end
+	end)
 end
 
 return M
