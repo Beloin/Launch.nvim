@@ -41,9 +41,7 @@ local function on_item_selected(entry)
 	noice.notify("Entry selected: " .. entry.value.name, "info", {})
 end
 
--- TODO: Make class or named table for this results
--- respecting { name, preview }
--- Add callback
+-- TODO: Add text to the upper block, add working preview
 
 --- Run picker calling callback
 ---@param results ItemExample[]
@@ -65,6 +63,7 @@ function M.run_picker(results, callback)
 					local entry = action_state.get_selected_entry()
 					actions.close(prompt_bufnr)
 
+          -- TODO: Remove when finished debugging
 					on_item_selected(entry)
           if callback then
             callback(entry.value)
