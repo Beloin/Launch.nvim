@@ -66,7 +66,7 @@ function M.run_picker(results, on_pick)
 				end,
 			}),
 			sorter = sorters.get_generic_fuzzy_sorter(),
-			preview = custom_previewer(),
+			previewer = custom_previewer(),
 			attach_mappings = function(prompt_bufnr, map)
 				actions.select_default:replace(function()
 					local entry = action_state.get_selected_entry()
