@@ -26,7 +26,7 @@ end
 
 local function custom_previewer()
 	return previewers.new_buffer_previewer({
-		define_preview = function(self, entry, status)
+		define_preview = function(self, entry)
 			-- Clear the buffer first
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {})
 
@@ -58,17 +58,19 @@ function M.run_picker(results, callback)
 			}),
 			preview = custom_previewer(),
 			sorter = sorters.get_generic_fuzzy_sorter(),
-			attach_mappings = function(_, map)
-				map("i", "<CR>", function(prompt_bufnr)
+			attach_mappings = function(prompt_bufnr, map)
+				actions.select_default:replace(function()
 					local entry = action_state.get_selected_entry()
 					actions.close(prompt_bufnr)
 
-          -- TODO: Remove when finished debugging
+					-- TODO: Remove when finished debugging
 					on_item_selected(entry)
-          if callback then
-            callback(entry.value)
-          end
+					if callback then
+						print("Calling callback...")
+						callback(entry.value)
+					end
 				end)
+
 				return true
 			end,
 		})
