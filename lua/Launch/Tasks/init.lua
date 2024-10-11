@@ -43,6 +43,7 @@ local function insert_preview()
 end
 
 function M.launch_tasks()
+  -- TODO: Add loader here
 	insert_preview()
 	local o = M.__tasks or {}
 	picker.run_picker(o, function(itemExample)
