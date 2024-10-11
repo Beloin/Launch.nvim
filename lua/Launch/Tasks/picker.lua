@@ -59,6 +59,7 @@ function M.run_picker(results, on_pick)
 					return make_entry(item)
 				end,
 			}),
+      previewers = custom_previewer(),
 			preview = custom_previewer(),
 			sorter = sorters.get_generic_fuzzy_sorter(),
 			attach_mappings = function(prompt_bufnr, map)

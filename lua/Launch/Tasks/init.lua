@@ -57,9 +57,11 @@ function M.launch_tasks()
 						utils.notify_status(output)
 					end
 				else
-					utils.notify_error("Could not run `" .. cmd .. "`")
+					utils.notify_error("Could not run `" .. cmd .. "` ")
 				end
 			end
+
+			utils.notify_status("Tasks done 🚀")
 		end
 	end)
 end
