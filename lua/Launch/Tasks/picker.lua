@@ -25,6 +25,7 @@ end
 local function custom_previewer()
 	return previewers.new_buffer_previewer({
 		define_preview = function(self, entry, _)
+			print("Calling define_preview")
 			-- Clear the buffer first
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {})
 
@@ -52,7 +53,10 @@ end
 function M.run_picker(results, on_pick)
 	pickers
 		.new({
-			preview = custom_previewer(),
+			layout_strategy = "horizontal",
+			layout_config = {
+				preview_width = 0.5, -- Adjust this if needed
+			},
 		}, {
 			prompt_title = "Tasks.nvim",
 			finder = finders.new_table({
@@ -61,8 +65,8 @@ function M.run_picker(results, on_pick)
 					return make_entry(item)
 				end,
 			}),
-			preview = custom_previewer(),
 			sorter = sorters.get_generic_fuzzy_sorter(),
+			preview = custom_previewer(),
 			attach_mappings = function(prompt_bufnr, map)
 				actions.select_default:replace(function()
 					local entry = action_state.get_selected_entry()
