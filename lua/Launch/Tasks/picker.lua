@@ -32,7 +32,7 @@ local function custom_previewer()
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(content, "\n"))
 
       -- Configure Buffer information
-      vim.bo[self.state.bufnr].filetype = "json"
+      vim.bo[self.state.bufnr].filetype = "lua"
       vim.bo[self.state.bufnr].modifiable = false
 		end,
 		-- Vars added to self.state
