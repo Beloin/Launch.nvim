@@ -36,7 +36,7 @@ local function insert_preview()
 	end
 
 	for _, task in ipairs(M.__tasks) do
-		task["preview"] = utils.dump(task)
+		task["preview"] = vim.inspect(task)
 	end
 
 	return M.__tasks

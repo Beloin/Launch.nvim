@@ -30,7 +30,7 @@ local function custom_previewer()
 
 			-- Display the hard-coded preview content for the selected item
 			local content = entry.value.preview
-			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
+			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(content, "\n"))
 		end,
 		-- Vars added to self.state
 		setup = function(_)
