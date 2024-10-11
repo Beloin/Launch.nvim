@@ -25,13 +25,11 @@ end
 local function custom_previewer()
 	return previewers.new_buffer_previewer({
 		define_preview = function(self, entry, _)
-			print("Calling define_preview")
 			-- Clear the buffer first
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {})
 
 			-- Display the hard-coded preview content for the selected item
-			-- local content = entry.value.preview
-			local content = "Move it upppppp"
+			local content = entry.value.preview
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(content, "\n"))
 		end,
 		-- Vars added to self.state
@@ -55,7 +53,7 @@ function M.run_picker(results, on_pick)
 		.new({
 			layout_strategy = "horizontal",
 			layout_config = {
-				preview_width = 0.5, -- Adjust this if needed
+				preview_width = 0.5,
 			},
 		}, {
 			prompt_title = "Tasks.nvim",
