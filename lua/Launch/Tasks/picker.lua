@@ -8,8 +8,6 @@ local sorters = require("telescope.sorters")
 local previewers = require("telescope.previewers")
 local action_state = require("telescope.actions.state")
 
-local noice = require("noice")
-
 ---@class ItemExample
 ---@field name string
 ---@field preview string Buffer Like viewer
@@ -26,27 +24,32 @@ end
 
 local function custom_previewer()
 	return previewers.new_buffer_previewer({
-		define_preview = function(self, entry)
+		define_preview = function(self, entry, _)
 			-- Clear the buffer first
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {})
 
 			-- Display the hard-coded preview content for the selected item
-			local content = entry.value.preview
+			-- local content = entry.value.preview
+			local content = "Move it upppppp"
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(content, "\n"))
 		end,
+		-- Vars added to self.state
+		setup = function(_)
+			return {}
+		end,
+		dynamic_preview_title = true,
+		dyn_title = function(self, entry)
+			return entry.value.name
+		end,
 	})
-end
-
-local function on_item_selected(entry)
-	noice.notify("Entry selected: " .. entry.value.name, "info", {})
 end
 
 -- TODO: Add text to the upper block, add working preview
 
 --- Run picker calling callback
 ---@param results ItemExample[]
----@param callback fun(itemExample: ItemExample)
-function M.run_picker(results, callback)
+---@param on_pick fun(itemExample: ItemExample)
+function M.run_picker(results, on_pick)
 	pickers
 		.new({}, {
 			prompt_title = "Tasks.nvim",
@@ -63,11 +66,8 @@ function M.run_picker(results, callback)
 					local entry = action_state.get_selected_entry()
 					actions.close(prompt_bufnr)
 
-					-- TODO: Remove when finished debugging
-					on_item_selected(entry)
-					if callback then
-						print("Calling callback...")
-						callback(entry.value)
+					if on_pick then
+						on_pick(entry.value)
 					end
 				end)
 

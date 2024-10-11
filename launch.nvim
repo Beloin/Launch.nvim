@@ -32,6 +32,18 @@
       "pipeline": [
         "echo 'Hello World'"
       ]
+    },
+    {
+      "name": "Create temp file",
+      "pipeline": [
+        "touch mytempvar.txt"
+      ]
+    },
+    {
+      "name": "Delete temp file",
+      "pipeline": [
+        "rm mytempvar.txt"
+      ]
     }
   ]
 }

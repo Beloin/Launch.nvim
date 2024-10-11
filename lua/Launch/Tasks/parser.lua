@@ -8,7 +8,7 @@ function M.reset()
 end
 
 --- Load tasks from launch.nvim
----@param tasks table
+---@param tasks table[]
 ---@return boolean
 function M.load_tasks(tasks)
 	if not tasks then

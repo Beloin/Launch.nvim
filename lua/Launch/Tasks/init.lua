@@ -53,7 +53,11 @@ function M.launch_tasks()
 				local ok, output = utils.run_sh(cmd)
 
 				if ok then
-					utils.notify_status(output)
+					if output and #output > 0 then
+						utils.notify_status(output)
+					end
+				else
+					utils.notify_error("Could not run `" .. cmd .. "`")
 				end
 			end
 		end
