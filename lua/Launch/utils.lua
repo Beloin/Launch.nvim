@@ -17,6 +17,25 @@ function M.dump(o)
 	end
 end
 
+--- Returns vim.inspect without methods/functions
+---@param t table
+function M.json_inspect(t)
+	local filtered_tbl = {}
+	if not t then
+		return filtered_tbl
+	end
+
+	-- Iterate over the table and only include non-function entries
+	for k, v in pairs(t) do
+		if type(v) ~= "function" then
+			filtered_tbl[k] = v
+		end
+	end
+
+	-- Use vim.inspect to print the filtered table
+	return vim.inspect(filtered_tbl)
+end
+
 function M.run_sh(command)
 	local handle = io.popen(command)
 	if not handle then
@@ -36,6 +55,5 @@ end
 function M.notify_error(msg)
 	noice.notify(msg, "error", { title = "Launch.nvim" })
 end
-
 
 return M

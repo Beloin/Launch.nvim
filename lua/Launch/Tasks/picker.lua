@@ -28,9 +28,12 @@ local function custom_previewer()
 			-- Clear the buffer first
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, {})
 
-			-- Display the hard-coded preview content for the selected item
-			local content = entry.value.preview
+			local content = entry.value.preview or "No preview available"
 			vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(content, "\n"))
+
+      -- Configure Buffer information
+      vim.bo[self.state.bufnr].filetype = "json"
+      vim.bo[self.state.bufnr].modifiable = false
 		end,
 		-- Vars added to self.state
 		setup = function(_)
