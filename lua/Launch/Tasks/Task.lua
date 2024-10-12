@@ -15,8 +15,4 @@ function Task:new(name, pipeline)
 end
 
 
-function Task:repr()
-  return utils.dump(self)
-end
-
 return Task
