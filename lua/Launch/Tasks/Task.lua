@@ -1,3 +1,4 @@
+local utils = require "Launch.utils"
 local Task = {}
 
 function Task:new(name, pipeline)
@@ -11,6 +12,11 @@ function Task:new(name, pipeline)
 		end,
 	})
 	return o
+end
+
+
+function Task:repr()
+  return utils.dump(self)
 end
 
 return Task

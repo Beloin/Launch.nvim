@@ -19,10 +19,11 @@ end
 
 --- Returns vim.inspect without methods/functions
 ---@param t table
+---@return string
 function M.json_inspect(t)
 	local filtered_tbl = {}
 	if not t then
-		return filtered_tbl
+		return "{}"
 	end
 
 	-- Iterate over the table and only include non-function entries
@@ -34,7 +35,6 @@ function M.json_inspect(t)
 
 	-- Use vim.inspect to print the filtered table
 	local out = vim.inspect(filtered_tbl)
-	out = out:gsub(",", "\n")
 	return out
 end
 
