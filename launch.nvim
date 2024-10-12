@@ -36,7 +36,9 @@
     {
       "name": "Create temp file",
       "pipeline": [
-        "touch mytempvar.txt"
+        "touch mytempvar.txt",
+        "echo 'Touched...'",
+        "echo 'Weird...'"
       ]
     },
     {

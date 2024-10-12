@@ -45,6 +45,7 @@ end
 
 function M.launch_tasks()
 	-- TODO: Add loader here
+  M.configure()
 	insert_preview()
 
 	local o = M.__tasks or {}
@@ -53,6 +54,7 @@ function M.launch_tasks()
 
 		if shouldProceed then
 			for _, cmd in ipairs(itemExample.pipeline) do
+        utils.notify_status("Running `" .. cmd ..  "` ")
 				local ok, output = utils.run_sh(cmd)
 
 				if ok then
@@ -60,7 +62,7 @@ function M.launch_tasks()
 						utils.notify_status(output)
 					end
 				else
-					utils.notify_error("Could not run `" .. cmd .. "` ")
+					utils.notify_error("Could not run `" .. cmd .. "`  ")
 				end
 			end
 

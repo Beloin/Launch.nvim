@@ -33,7 +33,9 @@ function M.json_inspect(t)
 	end
 
 	-- Use vim.inspect to print the filtered table
-	return vim.inspect(filtered_tbl)
+	local out = vim.inspect(filtered_tbl)
+	out = out:gsub(",", "\n")
+	return out
 end
 
 function M.run_sh(command)
