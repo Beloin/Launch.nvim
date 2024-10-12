@@ -27,11 +27,13 @@ local function recursive_inspect(t, level)
 
 	if type(t) == "table" then
 		out = out .. "{\n"
-		for _, v in pairs(t) do
+		for k, v in pairs(t) do
+			local key = type(k) == "string" and k .. " = " or "" -- Handle keys
+			-- Check if the value is a table (to handle nested arrays)
 			if type(v) == "table" then
-				out = out .. indent .. recursive_inspect(v, level + 1)
+				out = out .. indent .. key .. recursive_inspect(v, level + 1) .. ",\n"
 			else
-				out = out .. indent .. vim.inspect(v) .. ",\n"
+				out = out .. indent .. key .. vim.inspect(v) .. ",\n"
 			end
 		end
 		out = out .. string.rep("\t", level - 1) .. "}"
