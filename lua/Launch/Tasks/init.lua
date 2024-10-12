@@ -5,6 +5,8 @@ local tasks_parser = require("Launch.Tasks.parser")
 local picker = require("Launch.Tasks.picker")
 local utils = require("Launch.utils")
 
+--- Tasks to be run
+--- @type table[]
 M.__tasks = {}
 
 function M.configure()
@@ -38,6 +40,7 @@ local function insert_preview()
 	for _, task in ipairs(M.__tasks) do
 		task["preview"] = nil
 		task["preview"] = utils.json_inspect(task)
+		task["preview"] = task:repr()
 	end
 
 	return M.__tasks
@@ -45,7 +48,7 @@ end
 
 function M.launch_tasks()
 	-- TODO: Add loader here
-  M.configure()
+	M.configure()
 	insert_preview()
 
 	local o = M.__tasks or {}
@@ -54,7 +57,7 @@ function M.launch_tasks()
 
 		if shouldProceed then
 			for _, cmd in ipairs(itemExample.pipeline) do
-        utils.notify_status("Running `" .. cmd ..  "` ")
+				utils.notify_status("Running `" .. cmd .. "` ")
 				local ok, output = utils.run_sh(cmd)
 
 				if ok then
