@@ -39,8 +39,7 @@ local function insert_preview()
 
 	for _, task in ipairs(M.__tasks) do
 		task["preview"] = nil
-		-- task["preview"] = utils.json_inspect(task)
-		task["preview"] = utils.safe_dump(task)
+		task["preview"] = utils.json_inspect(task)
 	end
 
 	return M.__tasks

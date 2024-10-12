@@ -17,21 +17,6 @@ function M.dump(o)
 	end
 end
 
-function M.safe_dump(o)
-	if type(o) == "table" then
-		local s = "{ "
-		for k, v in pairs(o) do
-			if type(k) ~= "number" then
-				k = '"' .. k .. '"'
-			end
-			s = s .. " " .. k .. "  = " .. M.dump(v) .. ",\n"
-		end
-		return s .. "} "
-	else
-		return '"' .. tostring(o) .. '"'
-	end
-end
-
 --- Returns vim.inspect without methods/functions
 ---@param t table
 ---@return string
@@ -50,6 +35,7 @@ function M.json_inspect(t)
 
 	-- Use vim.inspect to print the filtered table
 	local out = vim.inspect(filtered_tbl)
+  out = out:gsub("{", "{\n"):gsub(",", ",\n"):gsub("}", "\n}")
 	return out
 end
 
