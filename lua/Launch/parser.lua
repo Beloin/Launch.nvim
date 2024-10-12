@@ -1,5 +1,6 @@
 local M = {}
 
+M.__current_version = { 0, 1, 0 }
 M.__current_table = nil
 M.__current_index = 1
 
@@ -14,7 +15,7 @@ local function parse()
 
 		table = vim.json.decode(content)
 	else
-		local lJson2 = io.open(cwd .. "/.vscode/launch.nvim")
+		local lJson2 = io.open(cwd .. "/Launch.nvim")
 		if lJson2 then
 			local content = lJson2:read("*all")
 			lJson2:close()
@@ -99,8 +100,24 @@ local function cache_get_cwd(table)
 	if not table then
 		return nil
 	end
-
 	return table["configurations"][M.__current_index]["cwd"]
+end
+
+---@param table table
+---@return table?
+local function cache_read_tasks(table)
+	if not table then
+		return nil
+	end
+	return table["tasks"]
+end
+
+local function cache_read_request(table)
+	if not table then
+		return nil
+	end
+
+	return table["configurations"][M.__current_index]["request"]
 end
 
 M.load = function()
@@ -140,6 +157,11 @@ end
 
 -- TODO: For now everything will be "Launch"
 M.get_request = function()
+	local request = cache_read_request(M.__current_table)
+	if request then
+		return request
+	end
+
 	return "launch"
 end
 
@@ -175,7 +197,13 @@ function M.set_index(i)
 end
 
 function M.get_cwd()
-  return cache_get_cwd(M.__current_table)
+	return cache_get_cwd(M.__current_table)
 end
+
+function M.get_tasks()
+	return cache_read_tasks(M.__current_table)
+end
+
+-- TODO: Implement injecting variables with ${myVarName}
 
 return M

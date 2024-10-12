@@ -1,18 +1,51 @@
 {
-  "version": "0.0.1",
-  "configurations":[ 
+  "version": "0.1.0",
+  "configurations": [
     {
       "name": "My C runnable",
       "lang": "c",
       "type": "codelldb",
       "run": "make debug",
       "program": "./target",
-      "pipeline": [ "echo 'Hello World'", "make debug" ],
-      "args" : [ "examples/flow-control/example_02.bc" ],
-      "env": { 
-        "ENV_VAR": "1" 
+      "pipeline": [
+        "echo 'Hello World'",
+        "make debug"
+      ],
+      "args": [
+        "examples/flow-control/example_02.bc"
+      ],
+      "env": {
+        "ENV_VAR": "1"
       },
       "cwd": "."
+    }
+  ],
+  "tasks": [
+    {
+      "name": "Generate compile_commands.json",
+      "pipeline": [
+        "bear -- make"
+      ]
+    },
+    {
+      "name": "Say Hello World",
+      "pipeline": [
+        "echo 'Hello World'"
+      ]
+    },
+    {
+      "name": "Create temp file",
+      "pipeline": [
+        "touch mytempvar.txt",
+        "echo 'Touched...'",
+        "echo 'Weird...'"
+      ]
+    },
+    {
+      "name": "Delete temp file",
+      "pipeline": [
+        "rm mytempvar.txt"
+      ]
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch",
+      "lang": "cs",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "Api/bin/Debug/net8.0/Api.dll",
+      "cwd": "./Api/",
+      "args": [],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://+:7244;http://+:5244"
+      },
+      "pipeline": [
+        "dotnet build"
+      ]
+    }
+  ]
+}
