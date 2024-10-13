@@ -1,6 +1,8 @@
 # Launch.nvim
 
-Current settings version: `0.1.0`
+Neovim's specific launcher settings.
+
+Current settings version: `0.2.0`
 
 ```lua
 {
@@ -19,7 +21,7 @@ Current settings version: `0.1.0`
 
 ```JSON
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "configurations":[ 
     {
       "name": "My C runnable",
@@ -34,6 +36,8 @@ Current settings version: `0.1.0`
       }
     }
   ],
+  // Enable or disable asynchronous tasks (Enable by default)
+  "asyncTasks": true,
   "tasks": [
     {
       "name": "Generate compile_commands.json",
@@ -49,14 +53,17 @@ Current settings version: `0.1.0`
 
 1. [Noice](https://github.com/folke/noice.nvim)
 2. [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+3. [Plenary](https://github.com/nvim-lua/plenary.nvim)
 
 # Posterior works
 
-- [ ] CWD Property
+- [ ] Async run using [Plenary](https://github.com/nvim-lua/plenary.nvim)
 - [ ] Varible expansion (Including env variables)
   - List of default variables
   - Command variables (if not exists create it)
+  - CWD Property
 - [ ] Command Prompt
+- [ ] Default keymap
 
 # References
 
