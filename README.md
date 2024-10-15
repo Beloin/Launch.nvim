@@ -1,3 +1,5 @@
+![Lua](https://img.shields.io/badge/Made%20with%20Lua-blueviolet.svg?style=for-the-badge&logo=lua)
+
 # Launch.nvim
 
 Current settings version: `0.1.0`
