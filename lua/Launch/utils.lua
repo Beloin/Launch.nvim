@@ -91,4 +91,58 @@ function M.notify_error(msg)
 	noice.notify(msg, "error", { title = "Launch.nvim" })
 end
 
+function M.notify_debug(msg)
+	noice.notify(msg, "debug", { title = "Launch.nvim" })
+end
+
+
+--- Shallow Copy a table
+---@param in_t table
+---@param out_t table?
+---@param exclude_opts string[]?
+---@return table
+function M.shallow_copy(in_t, out_t, exclude_opts)
+	if out_t == nil then
+		out_t = {}
+	end
+  if exclude_opts == nil then
+    exclude_opts = {}
+  end
+
+  local newexc_opts = {}
+  for _, value in ipairs(exclude_opts) do
+    newexc_opts[value] = true
+  end
+
+	for k, v in pairs(in_t) do
+    if newexc_opts[k] then
+      goto continue
+    end
+
+		out_t[k] = v
+
+	    ::continue::
+	end
+
+	return out_t
+end
+
+--- Scan a directory
+---@param directory string
+---@return string[]
+function M.scandir(directory)
+	local i, t, popen = 0, {}, io.popen
+	local pfile = popen('ls -a "' .. directory .. '"')
+	if pfile == nil then
+		return {}
+	end
+
+	for filename in pfile:lines() do
+		i = i + 1
+		t[i] = filename
+	end
+	pfile:close()
+	return t
+end
+
 return M

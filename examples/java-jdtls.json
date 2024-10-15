@@ -1,20 +1,20 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "configurations": [
     {
-      "name": "My Java Application",
+      "name": "Spring with jdtls",
       "lang": "java",
-      "type": "jdtls",
-      "program": "com.app.main",
-      "pipeline": [],
-      "args": [],
-      "env": {}
-    },
-    {
-      "name": "Run Spring-boot",
-      "type": "java-attach",
+      "type": "java",
+      "request": "launch",
+      "program": "com.backend.app.Main",
+      "args": [
+        "-Dspring.profiles.active=dev"
+      ],
+      "env": {
+        "SPRING_PROFILES_ACTIVE": "dev"
+      },
       "pipeline": [
-        "mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005\""
+        "echo \"Hi from Java!\""
       ]
     }
   ],
