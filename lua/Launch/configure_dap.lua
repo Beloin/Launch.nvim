@@ -5,10 +5,12 @@ local dap2 = require("dap.session")
 local parser = require("Launch.parser")
 local noice = require("noice")
 local utils = require("Launch.utils")
+local daplaunch = require("Launch.dap-launch")
 
 local show_result = false
 
 local function set_env(env_tb)
+  utils.notify_debug("Setting envs: " .. utils.dump(env_tb))
 	if not env_tb then
 		return
 	end
@@ -25,30 +27,32 @@ local function notify_error(msg)
 	noice.notify(msg, "error", { title = "Launch.nvim" })
 end
 
+---@param config DapConfig
+---@param lang string
 local function insert_config(config, lang)
-	if not lang then
-		notify_error("Not informed lang")
-		return
-	end
-	lang = string.lower(lang)
+	daplaunch.insert_config(config, lang)
+end
 
-	local configs = dap.configurations[lang]
-	if configs then
-		for i, cfg in pairs(configs) do
-			if cfg.name == config.name then
-				configs[i] = config
-				return
+local function run_pipeline(pipeline)
+	for index = 1, #pipeline do
+		local cmd = pipeline[index]
+		notify_status("Running: " .. cmd)
+		local ok, result = utils.run_sh(cmd)
+		if ok then
+			if show_result then
+				notify_status(result)
 			end
+			notify_status("Finished: " .. cmd)
+		else
+			notify_error("Failed to run " .. cmd)
+			return nil
 		end
-		table.insert(configs, config)
-		return
 	end
-
-	dap.configurations[lang] = config
 end
 
 local function parse_config()
 	-- TODO: Launch error for necessary fields
+	-- Actually use default value if those are none
 	local type = parser.get_type()
 	local lang = parser.get_lang()
 
@@ -72,26 +76,22 @@ local function parse_config()
 		request = request,
 		type = type,
 
+		pipeline = function()
+			if should_prep then
+				if pipeline then
+					notify_status("Running Pipeline")
+					run_pipeline(pipeline)
+					notify_status("Pipeline Finished")
+				end
+			end
+		end,
+
 		program = function()
 			if should_prep then
 				-- Run pipeline
 				if pipeline then
 					notify_status("Running preprocess")
-					for index = 1, #pipeline do
-						local cmd = pipeline[index]
-						notify_status("Running: " .. cmd)
-						local ok, result = utils.run_sh(cmd)
-						if ok then
-							if show_result then
-								notify_status(result)
-							end
-							notify_status("Finished: " .. cmd)
-						else
-							notify_error("Failed to run " .. cmd)
-							return nil
-						end
-					end
-
+					run_pipeline(pipeline)
 					notify_status("Pipeline Finished")
 				end
 			end
@@ -102,6 +102,7 @@ local function parse_config()
 
 			notify_error('Could not load "program" in launch.nvim')
 			-- TODO: Fail safe here instead of returning nil
+			-- TODO: Return default if program is nil
 			return nil
 		end,
 
@@ -115,6 +116,10 @@ local function parse_config()
 
 			return nil
 		end,
+
+    setenv = function ()
+			set_env(env_tb)
+    end,
 
 		cwd = cwd,
 	}
