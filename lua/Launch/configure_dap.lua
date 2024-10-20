@@ -32,9 +32,15 @@ local function insert_config(config, lang)
 	end
 	lang = string.lower(lang)
 
-	local tb = dap.configurations[lang]
-	if tb then
-		table.insert(tb, config)
+	local configs = dap.configurations[lang]
+	if configs then
+		for i, cfg in pairs(configs) do
+			if cfg.name == config.name then
+				configs[i] = config
+				return
+			end
+		end
+		table.insert(configs, config)
 		return
 	end
 
@@ -79,7 +85,7 @@ local function parse_config()
 							if show_result then
 								notify_status(result)
 							end
-              notify_status("Finished: " .. cmd)
+							notify_status("Finished: " .. cmd)
 						else
 							notify_error("Failed to run " .. cmd)
 							return nil
