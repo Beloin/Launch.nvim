@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "My Java Application",
+      "lang": "java",
+      "type": "jdtls",
+      "program": "com.app.main",
+      "pipeline": [],
+      "args": [],
+      "env": {}
+    },
+    {
+      "name": "Run Spring-boot",
+      "type": "java-attach",
+      "pipeline": [
+        "mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005\""
+      ]
+    }
+  ],
+  "tasks": []
+}

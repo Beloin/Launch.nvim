@@ -52,6 +52,7 @@ Current settings version: `0.1.0`
 
 # Posterior works
 
+- [ ] Java example
 - [ ] CWD Property
 - [ ] Varible expansion (Including env variables)
   - List of default variables
