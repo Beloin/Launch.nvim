@@ -10,7 +10,6 @@ local daplaunch = require("Launch.dap-launch")
 local show_result = false
 
 local function set_env(env_tb)
-  utils.notify_debug("Setting envs: " .. utils.dump(env_tb))
 	if not env_tb then
 		return
 	end

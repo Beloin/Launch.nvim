@@ -26,7 +26,6 @@ local function load_config(lang)
 	local dirname = string.sub(debug.getinfo(1).source, 2, string.len("/dap-launch.lua") * -1)
 	local files = utils.scandir(dirname .. "/langs")
 	local toLoad = search_file(files, lang)
-	utils.notify_debug("Found language config in " .. toLoad)
 	-- Example: require("Launch.langs.default-launch")
 	local module = require(toLoad)
 	return module
