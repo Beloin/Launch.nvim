@@ -35,13 +35,12 @@ end
 local function run_pipeline(pipeline)
 	for index = 1, #pipeline do
 		local cmd = pipeline[index]
-		notify_status("Running: " .. cmd)
+		notify_status("$ " .. cmd)
 		local ok, result = utils.run_sh(cmd)
 		if ok then
 			if show_result then
 				notify_status(result)
 			end
-			notify_status("Finished: " .. cmd)
 		else
 			notify_error("Failed to run " .. cmd)
 			return nil
@@ -78,9 +77,7 @@ local function parse_config()
 		pipeline = function()
 			if should_prep then
 				if pipeline then
-					notify_status("Running Pipeline")
 					run_pipeline(pipeline)
-					notify_status("Pipeline Finished")
 				end
 			end
 		end,
@@ -89,9 +86,7 @@ local function parse_config()
 			if should_prep then
 				-- Run pipeline
 				if pipeline then
-					notify_status("Running preprocess")
 					run_pipeline(pipeline)
-					notify_status("Pipeline Finished")
 				end
 			end
 
@@ -116,9 +111,9 @@ local function parse_config()
 			return nil
 		end,
 
-    setenv = function ()
+		setenv = function()
 			set_env(env_tb)
-    end,
+		end,
 
 		cwd = cwd,
 	}
