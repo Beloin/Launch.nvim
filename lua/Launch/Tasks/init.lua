@@ -54,7 +54,7 @@ function M.launch_tasks()
 
 		if shouldProceed then
 			for _, cmd in ipairs(itemExample.pipeline) do
-				utils.notify_status("Running `" .. cmd .. "` ")
+				utils.notify_status(" " .. "`" .. cmd .. "`")
 				local ok, output = utils.run_sh(cmd)
 
 				if ok then

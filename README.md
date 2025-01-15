@@ -55,11 +55,12 @@ Current settings version: `0.2.0`
 
 # Posterior works
 
-- [ ] Java Implementation
+- [X] Java Implementation
 - [ ] Varible expansion (Including env variables)
   - List of default variables
   - Command variables (if not exists create it)
 - [ ] Command Prompt
+- [ ] Create a `launch.lua` file to load instead of read `json` file. Using loadstring
 
 # References
 
