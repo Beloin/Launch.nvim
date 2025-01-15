@@ -35,7 +35,7 @@ end
 local function run_pipeline(pipeline)
 	for index = 1, #pipeline do
 		local cmd = pipeline[index]
-		notify_status("$ " .. cmd)
+		notify_status(" " .. cmd)
 		local ok, result = utils.run_sh(cmd)
 		if ok then
 			if show_result then
@@ -122,7 +122,6 @@ local function parse_config()
 end
 
 M.configure = function()
-	notify_status("Loading Configurations")
 	parser.load()
 
 	if not parser.is_loaded() then
