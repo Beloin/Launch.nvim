@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rate Limitter (Debug)",
+      "lang": "cpp",
+      "type": "codelldb",
+      "program": "./build/rate_limiter",
+      "pipeline": [
+        "cmake -S . -O build -DCMAKE_BUILD_TYPE=Debug",
+        "cd build && make"
+      ],
+      "args": [],
+      "env": {}
+    }
+  ]
+}
