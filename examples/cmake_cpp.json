@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Distributed Cache Limitter (Debug)",
+      "lang": "cpp",
+      "type": "codelldb",
+      "program": "./build/distributed_cache",
+      "pipeline": [
+        "cmake -S . -O build -DCMAKE_BUILD_TYPE=Debug",
+        "cd build && make"
+      ],
+      "args": [],
+      "env": {}
+    }
+  ],
+  "tasks": [
+    {
+      "name": "Generate compile_commands.json",
+      "pipeline": [
+        "cmake -S . -O build -DCMAKE_BUILD_TYPE=Debug",
+        "yes | cp build/compile_commands.json ."
+      ]
+    }
+  ]
+}
